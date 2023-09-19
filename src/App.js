@@ -13,12 +13,34 @@ class App extends Component {
     ],
   };
 
+  constructor(props) {
+    super(props);
+    //console.log("App- constructor", this.props);
+  }
+
+  componentDidMount() {
+    //console.log("App- Mounted");
+  }
+
+  componentDidUpdate() {
+    //console.log("App- Updated");
+  }
+
   handleIncrement = (counter) => {
     console.log("handleIncrement Event handler called", counter);
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
     counters[index].value++;
+    this.setState({ counters });
+  };
+
+  handleDecrement = (counter) => {
+    console.log("handleIncrement Event handler called", counter);
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
     this.setState({ counters });
   };
 
@@ -37,6 +59,7 @@ class App extends Component {
   };
 
   render() {
+    //console.log("App- Rendered");
     return (
       <React.Fragment>
         <NavBar
@@ -46,6 +69,7 @@ class App extends Component {
           <Counters
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
             onDelete={this.handleDelete}
             counters={this.state.counters}
           />
