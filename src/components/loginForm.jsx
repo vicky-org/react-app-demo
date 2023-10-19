@@ -25,7 +25,7 @@ class LoginForm extends Component {
 
     const errors = this.validate();
     console.log(errors);
-    this.setState({ errors });
+    this.setState({ errors: errors || {} });
     if (Object.keys(errors).length !== 0) {
       return;
     }
@@ -35,10 +35,25 @@ class LoginForm extends Component {
     console.log("Form Submitted ", username);
   };
 
+  validateProperty = ({ name, value }) => {
+    if (name === "username") {
+      if (value.trim() === "") return "Username is required";
+    }
+    if (name === "password") {
+      if (value.trim() === "") return "Password is required";
+    }
+  };
+
   handleChange = ({ currentTarget: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
     const account = { ...this.state.account };
     account[input.name] = input.value;
-    this.setState({ account });
+    console.log(errors);
+    this.setState({ account, errors });
   };
 
   render() {
