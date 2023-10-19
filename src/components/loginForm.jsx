@@ -17,7 +17,7 @@ class LoginForm extends Component {
     if (account.password.trim() === "")
       errors.password = "Password is required";
 
-    return Object.keys(errors).length === 0 ? null : errors;
+    return errors;
   };
 
   handleSubmit = (e) => {
@@ -26,7 +26,9 @@ class LoginForm extends Component {
     const errors = this.validate();
     console.log(errors);
     this.setState({ errors });
-    if (errors) return;
+    if (Object.keys(errors).length !== 0) {
+      return;
+    }
 
     //call the server
     const username = this.state.account.username;
@@ -50,12 +52,14 @@ class LoginForm extends Component {
             label="Username"
             value={account.username}
             onChange={this.handleChange}
+            error={errors.username}
           />
           <Input
             name="password"
             label="Password"
             value={account.password}
             onChange={this.handleChange}
+            error={errors.password}
           />
           <button className="btn btn-primary">Login</button>
         </form>
