@@ -4,16 +4,13 @@ import Form from "./common/form";
 
 class RegisterForm extends Form {
   state = {
-    data: { username: "", password: "" },
+    data: { username: "", password: "", name: "" },
     errors: {},
   };
 
   schema = {
-    username: Joi.string()
-      .email({ tlds: { allow: false } })
-      .required()
-      .label("Username"),
-    password: Joi.string().min(5).required().label("Password"),
+    username: Joi.string().required().email().label("Username"),
+    password: Joi.string().required().min(5).label("Password"),
     name: Joi.string().required().label("Name"),
   };
 
