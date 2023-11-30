@@ -1,5 +1,3 @@
-//import * as getGenres from "./genreService";
-
 import http from "./httpService";
 import config from "../config.json";
 
